@@ -1,0 +1,73 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# design drafts & reference files (local only)
+1. Home Cooked Meals.jpeg
+2. Carbs & Cravings.jpeg
+3. Tiffin Plans.jpeg
+Left Hero Edge Visual.png
+Right Hero Edge Visual.png
+Order Food & Groceries. Discover the best restaurants. Swiggy it!.html
+
+# dev utility scripts
+check-images.mjs
+check_pixels.mjs
+process-images.mjs
+/scripts/
+
+# unused public assets
+public/file.svg
+public/globe.svg
+public/next.svg
+public/vercel.svg
+public/window.svg
+public/hero/carbs-cravings.png
+public/hero/left-edge.png
+public/hero/right-edge.png
+public/hero/protein-edge-cutout.png
+public/hero/thali-edge-cutout.png
+public/hero/tiffin-edge-cutout.png
+public/hero/tiffin-plans.png
+public/products/card-home-cooked-full.png
+public/products/card-tiffin-plans-full.png
+public/products/card-for-cooks-full.png
+public/brand/carbs-cravings-logo-tight.png
