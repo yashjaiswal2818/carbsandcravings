@@ -74,8 +74,8 @@ function HomeCookedCard() {
   );
 }
 
-/* ── Card 2: Tiffin Plans ───────────────────────────────────────────────── */
-function TiffinPlansCard() {
+/* ── Card 2: Meal Plans ───────────────────────────────────────────────── */
+function MealPlansCard() {
   return (
     <motion.a
       href="#waitlist"
@@ -86,24 +86,24 @@ function TiffinPlansCard() {
       <div className="flex w-[46%] shrink-0 flex-col justify-between">
         <div>
           <h3 className="text-[clamp(1.35rem,_3vw,_2.1rem)] font-bold leading-[1.05] text-[#1e3d29]">
-            Tiffin<br />Plans
+            Meal<br />Plans
           </h3>
-          <p className="mt-3 text-[clamp(0.65rem,_1.1vw,_0.85rem)] leading-snug text-[#2d5a3d]">
-            Weekly & monthly subscription plans
+          <p className="mt-3 text-[clamp(0.65rem,_1.1vw,_0.85rem)] leading-snug text-[#2d5a3d] font-medium">
+            ₹1500 for 7 days<br/>₹600 for 3 days.<br/>Try it!
           </p>
-          <span className="mt-4 inline-block rounded-full bg-[#d4c5a3] px-4 py-1.5 text-[clamp(0.55rem,_0.9vw,_0.78rem)] font-medium text-[#2d5a3d]">
+          <span className="mt-4 inline-block rounded-full bg-[#e63946] px-4 py-1.5 text-[clamp(0.55rem,_0.9vw,_0.78rem)] font-bold text-white animate-pulse shadow-md">
             Coming soon
           </span>
         </div>
         <ArrowBtn />
       </div>
 
-      {/* Right: green gradient panel with tiffin photo */}
+      {/* Right: green gradient panel with photo */}
       <div className="relative flex-1 overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-[#8ca885] via-[#a8be9f] to-[#c6d4be]">
         <div className="absolute inset-0 flex items-center justify-center p-5">
           <Image
             src="/products/card-tiffin-plans.png"
-            alt="Stainless steel tiffin dabba"
+            alt="Stainless steel meal dabba"
             width={300}
             height={300}
             sizes="(min-width: 768px) 13vw, 40vw"
@@ -115,44 +115,6 @@ function TiffinPlansCard() {
   );
 }
 
-/* ── Card 3: For the Best Home Cooks ───────────────────────────────────── */
-function ForCooksCard() {
-  return (
-    <motion.a
-      href="#for-cooks"
-      variants={itemVariants}
-      className="group relative flex overflow-hidden rounded-[2rem] bg-[#eae5dd] card-shadow card-lift aspect-[1776/1362] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d5a3d] focus-visible:ring-offset-2 p-6"
-    >
-      {/* Left: text */}
-      <div className="flex w-[46%] shrink-0 flex-col justify-between">
-        <div>
-          <h3 className="text-[clamp(1.35rem,_3vw,_2.1rem)] font-bold leading-[1.05] text-[#1e3d29]">
-            For the best home Cooks
-          </h3>
-          <p className="mt-3 text-[clamp(0.65rem,_1.1vw,_0.85rem)] leading-snug text-[#2d5a3d]">
-            Handpicked & premium ingredients
-          </p>
-        </div>
-        <ArrowBtn />
-      </div>
-
-      {/* Right: sage circle backdrop + brass cookware photo */}
-      <div className="relative flex-1 flex items-center justify-center">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] aspect-square rounded-full bg-[#b5c4b1]/45" />
-        <div className="relative z-10 w-[95%]">
-          <Image
-            src="/products/card-for-cooks.png"
-            alt="Traditional brass karahi and cookware"
-            width={380}
-            height={380}
-            sizes="(min-width: 768px) 13vw, 40vw"
-            className="w-full h-auto object-contain drop-shadow-md transition duration-300 group-hover:scale-[1.04]"
-          />
-        </div>
-      </div>
-    </motion.a>
-  );
-}
 
 /* ── Section ─────────────────────────────────────────────────────────────── */
 export function ProductCardRow() {
@@ -184,11 +146,10 @@ export function ProductCardRow() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid gap-6 md:grid-cols-3"
+          className="grid gap-6 md:grid-cols-2 max-w-4xl"
         >
           <HomeCookedCard />
-          <TiffinPlansCard />
-          <ForCooksCard />
+          <MealPlansCard />
         </motion.div>
       </div>
     </section>

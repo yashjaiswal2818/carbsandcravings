@@ -7,7 +7,6 @@ import { WaitlistForm } from "@/components/waitlist-form";
 import { ProductCardRow } from "@/components/product-card-row";
 import { CuisineRow } from "@/components/cuisine-row";
 import { InterruptStrip } from "@/components/interrupt-strip";
-import { NeighborhoodGrid } from "@/components/neighborhood-grid";
 import { SiteFooter } from "@/components/site-footer";
 
 const steps = [
@@ -32,7 +31,7 @@ const cookPoints = [
 const credibilityStats = [
   { number: "25+", label: "Home cooks interviewed" },
   { number: "15+", label: "Customers validated" },
-  { number: "#1", label: "Bengaluru is our launch city" },
+  { number: "Soon", label: "Neighborhoods active soon" },
   { number: "2×", label: "Daily meal habits served" },
 ];
 
@@ -79,7 +78,7 @@ export default function Home() {
             <div className="lg:w-[58%]">
               <motion.div {...reveal}>
                 <p className="inline-flex rounded-full bg-white/15 px-4 py-1 text-xs font-medium uppercase tracking-[0.2em]">
-                  Launching first in Bengaluru
+                  Launching soon in your area
                 </p>
                 <h1 className="mt-6 text-3xl font-semibold leading-[1.05] sm:text-4xl lg:text-[3.6rem]">
                   Home-cooked lunch and dinner, from nearby kitchens
@@ -90,7 +89,7 @@ export default function Home() {
                   ₹120–180. No subscription, no lock-in.
                 </p>
                 <p className="mt-3 text-sm text-white/60">
-                  Join 200+ Bengaluru residents already on the waitlist.
+                  Join 200+ residents already on the waitlist.
                 </p>
               </motion.div>
 
@@ -209,7 +208,7 @@ export default function Home() {
       <section className="bg-white px-6 py-20 sm:px-10 lg:px-16">
         <motion.div {...reveal} className="mx-auto w-full max-w-6xl">
           <h2 className="text-4xl font-semibold text-[var(--color-charcoal)]">
-            Building with real Bengaluru demand
+            Building with real demand
           </h2>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {credibilityStats.map((stat) => (
@@ -227,7 +226,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <NeighborhoodGrid />
+
 
       <section className="bg-[var(--color-champagne)]/40 px-6 py-24 sm:px-10 lg:px-16">
         <motion.div {...reveal} className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">

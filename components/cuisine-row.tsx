@@ -7,12 +7,7 @@ import { motion } from "framer-motion";
 const cuisines = [
   { label: "North Indian Thali", image: "/cuisines/cuisine-north-indian-thali.webp" },
   { label: "South Indian Dosa", image: "/cuisines/cuisine-south-indian-dosa.webp" },
-  { label: "Biryani", image: "/cuisines/cuisine-biryani.webp" },
-  { label: "Rolls & Street Food", image: "/cuisines/cuisine-rolls.webp" },
-  { label: "Bengali", image: "/cuisines/cuisine-bengali.webp" },
-  { label: "Maharashtrian", image: "/cuisines/cuisine-maharashtrian.webp" },
-  { label: "Gujarati", image: "/cuisines/cuisine-gujarati.webp" },
-  { label: "South Indian Tiffin", image: "/cuisines/cuisine-south-tiffin.webp" },
+  { label: "South Indian Meals", image: "/cuisines/cuisine-south-tiffin.webp" },
 ];
 
 const reveal = {

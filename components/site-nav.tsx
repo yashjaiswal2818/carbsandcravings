@@ -44,18 +44,7 @@ export function SiteNav() {
                 className="h-32 w-auto sm:h-40"
               />
             </a>
-            <span
-              aria-hidden="true"
-              className="hidden h-6 w-px bg-black/10 sm:block"
-            />
-            <span
-              className="hidden items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--color-charcoal)] sm:inline-flex"
-              aria-label="Serving Bengaluru"
-            >
-              <LocationPin />
-              <span>Bengaluru</span>
-              <Caret />
-            </span>
+
           </div>
 
           <div className="flex items-center gap-4 sm:gap-7 text-sm font-medium text-[var(--color-charcoal)]">
@@ -142,41 +131,4 @@ export function SiteNav() {
   );
 }
 
-function LocationPin() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  );
-}
 
-function Caret() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="10"
-      height="10"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <polyline points="6 9 12 15 18 9" />
-    </svg>
-  );
-}
