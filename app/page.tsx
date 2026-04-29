@@ -10,10 +10,10 @@ import { InterruptStrip } from "@/components/interrupt-strip";
 import { SiteFooter } from "@/components/site-footer";
 
 const steps = [
-  "Browse nearby kitchens",
-  "Pick your meal \u2014 lunch or dinner",
-  "Order ahead with lead time",
-  "Get it fresh at your door",
+  { title: "Browse kitchens", detail: "See nearby home cooks and today's menu." },
+  { title: "Pick lunch or dinner", detail: "Choose a meal that fits your day." },
+  { title: "Order in a tap", detail: "Schedule quickly with your preferred slot." },
+  { title: "Enjoy it fresh", detail: "Warm home-style food delivered to you." },
 ];
 
 const customerPoints = [
@@ -28,13 +28,6 @@ const cookPoints = [
   "Orders, payments, and logistics support from us",
 ];
 
-const credibilityStats = [
-  { number: "25+", label: "Home cooks interviewed" },
-  { number: "15+", label: "Customers validated" },
-  { number: "Soon", label: "Neighborhoods active soon" },
-  { number: "2×", label: "Daily meal habits served" },
-];
-
 const reveal = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
@@ -42,12 +35,41 @@ const reveal = {
   transition: { duration: 0.5, ease: "easeOut" as const },
 };
 
+function StepVisual({ index }: { index: number }) {
+  if (index === 0) {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M11 3a8 8 0 106.32 12.9l3.4 3.4 1.4-1.4-3.4-3.4A8 8 0 0011 3z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  if (index === 1) {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M7 5h10M5.5 9.5h13M8 14h8M10.5 18h3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    );
+  }
+  if (index === 2) {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M4 12h13M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <>
       <SiteNav />
       <main id="top" className="bg-[var(--color-base)] pt-[72px]">
-        <section className="relative isolate overflow-hidden bg-[var(--color-deep-forest)] text-white">
+        <section className="relative isolate overflow-hidden bg-[var(--color-base)] text-[var(--color-charcoal)]">
           <div className="pointer-events-none absolute -left-36 top-24 h-72 w-72 rounded-full bg-[#3f7f55]/35 blur-3xl" />
           <div className="pointer-events-none absolute -right-24 bottom-14 h-64 w-64 rounded-full bg-[#6f9975]/25 blur-3xl" />
 
@@ -77,47 +99,47 @@ export default function Home() {
           <div className="relative z-10 mx-auto flex min-h-[calc(100vh-72px)] max-w-6xl flex-col justify-center px-6 py-16 sm:py-20 lg:py-24">
             <div className="lg:w-[58%]">
               <motion.div {...reveal}>
-                <p className="inline-flex rounded-full bg-white/15 px-4 py-1 text-xs font-medium uppercase tracking-[0.2em]">
-                  Launching soon in your area
+                <p className="inline-flex items-center gap-3 rounded-full bg-[var(--color-champagne)] px-5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[#b7703f]">
+                  <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-[#edc3a0]" />
+                  Coming soon — Marathahalli, Bangalore
                 </p>
-                <h1 className="mt-6 text-3xl font-semibold leading-[1.05] sm:text-4xl lg:text-[3.6rem]">
-                  Home-cooked lunch and dinner, from nearby kitchens
+                <h1 className="mt-8 text-[3rem] font-semibold leading-[0.95] text-[var(--color-deep-forest)] sm:text-[4.2rem] lg:text-[5.1rem]">
+                  <span className="block">COMING</span>
+                  <span className="block text-[#c68050]" style={{ fontStyle: "italic", fontWeight: 500 }}>
+                    SOON.
+                  </span>
                 </h1>
-                <p className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
-                  <em style={{fontFamily: "var(--font-display)", fontStyle: "italic"}}>Ghar ka khana, bina ghar ke.</em>{" "}
-                  Fresh meals cooked in real homes near you — delivered warm for
-                  ₹120–180. No subscription, no lock-in.
+                <p className="mt-7 max-w-xl text-[1.7rem] font-semibold leading-tight text-[var(--color-charcoal)] sm:text-[2rem]">
+                  Home-style food, balanced for your body.
+                  <br />
+                  No cooking, no stress.
                 </p>
-                <p className="mt-3 text-sm text-white/60">
-                  Join 200+ residents already on the waitlist.
+                <p className="mt-5 max-w-xl text-lg text-[#5b5a58]">
+                  Ghar ka taste, gym ka balance — simple meals that feel familiar
+                  while quietly supporting your protein and nutrition needs every
+                  single day.
                 </p>
+                <div className="mt-10 flex flex-wrap items-center gap-4">
+                  <a
+                    href="#waitlist"
+                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-deep-forest)] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#234a31]"
+                  >
+                    Reserve Your Spot
+                  </a>
+                  <a
+                    href="#how-it-works"
+                    className="inline-flex items-center justify-center rounded-full border border-[var(--color-muted-sage)]/35 bg-white/80 px-8 py-3 text-base font-semibold text-[var(--color-deep-forest)] transition-colors hover:bg-white"
+                  >
+                    Learn More
+                  </a>
+                </div>
               </motion.div>
 
-              <motion.div
-                {...reveal}
-                transition={{ ...reveal.transition, delay: 0.12 }}
-                className="mt-8"
-              >
-                <WaitlistForm compact />
-              </motion.div>
             </div>
           </div>
         </section>
 
         <ProductCardRow />
-
-      <section className="bg-white px-6 py-20 sm:px-10 lg:px-16">
-        <motion.div {...reveal} className="mx-auto w-full max-w-5xl">
-          <h2 className="max-w-2xl text-4xl font-semibold text-[var(--color-charcoal)]">
-            Tired of paying ₹250 for food that tastes like nothing?
-          </h2>
-          <p className="mt-5 max-w-3xl text-lg text-[#4a4a49]">
-            Restaurant food is expensive, oily, and soulless. Mess food is even
-            worse. There has to be a better way for people living away from
-            home.
-          </p>
-        </motion.div>
-      </section>
 
       <CuisineRow />
 
@@ -126,27 +148,49 @@ export default function Home() {
           <h2 className="text-4xl font-semibold text-[var(--color-charcoal)]">
             How it works
           </h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <p className="mt-4 max-w-2xl text-base text-[#585755] sm:text-lg">
+            From craving to checkout in 4 quick steps.
+          </p>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, index) => (
               <div
-                key={step}
+                key={step.title}
                 className="ambient-shadow relative overflow-hidden rounded-[1.75rem] bg-[var(--color-card)] p-6"
               >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute bottom-2 right-4 select-none text-[5.5rem] font-bold leading-none text-[var(--color-muted-sage)]/10"
-                  style={{fontFamily: "var(--font-display)"}}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-muted-sage)]">
-                  Step {index + 1}
+                <div className="flex items-start justify-between gap-3">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-deep-forest)]/10 text-[var(--color-deep-forest)]">
+                    <StepVisual index={index} />
+                  </span>
+                  <span className="rounded-full bg-[var(--color-section)] px-2.5 py-1 text-xs font-semibold tracking-[0.12em] text-[var(--color-muted-sage)]">
+                    0{index + 1}
+                  </span>
+                </div>
+                <p className="mt-5 text-xl font-semibold leading-tight text-[var(--color-charcoal)]">
+                  {step.title}
                 </p>
-                <p className="mt-3 text-xl font-medium text-[var(--color-charcoal)]">
-                  {step}
+                <p className="mt-3 text-sm leading-relaxed text-[#5f5e5c]">
+                  {step.detail}
                 </p>
               </div>
             ))}
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="waitlist" className="bg-[var(--color-champagne)]/40 px-6 py-20 sm:px-10 lg:px-16">
+        <motion.div
+          {...reveal}
+          className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center"
+        >
+          <h2 className="text-3xl font-semibold text-[var(--color-charcoal)] sm:text-4xl">
+            Ready to try home-style meals?
+          </h2>
+          <p className="mt-4 max-w-2xl text-base text-[#4a4a49]">
+            Now that you know how it works, join the waitlist and we&apos;ll let
+            you know as soon as carbs &amp; cravings launches in your neighborhood.
+          </p>
+          <div className="mt-10 w-full max-w-2xl text-left">
+            <WaitlistForm />
           </div>
         </motion.div>
       </section>
@@ -204,43 +248,6 @@ export default function Home() {
       </section>
 
       <InterruptStrip id="for-cooks" />
-
-      <section className="bg-white px-6 py-20 sm:px-10 lg:px-16">
-        <motion.div {...reveal} className="mx-auto w-full max-w-6xl">
-          <h2 className="text-4xl font-semibold text-[var(--color-charcoal)]">
-            Building with real demand
-          </h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {credibilityStats.map((stat) => (
-              <div
-                key={stat.label}
-                className="ambient-shadow rounded-[1.5rem] bg-[var(--color-card)] p-5 text-center"
-              >
-                <p className="text-[2.2rem] font-semibold leading-none text-[var(--color-deep-forest)]" style={{fontFamily: "var(--font-display)"}}>
-                  {stat.number}
-                </p>
-                <p className="mt-2 text-sm text-[#4a4a49]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-
-
-      <section className="bg-[var(--color-champagne)]/40 px-6 py-24 sm:px-10 lg:px-16">
-        <motion.div {...reveal} className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">
-          <h2 className="text-3xl font-semibold text-[var(--color-charcoal)] sm:text-4xl">
-            Be first in your neighborhood
-          </h2>
-          <p className="mt-4 text-base text-[#4a4a49]">
-            Join the waitlist to get early access when we open near you.
-          </p>
-          <div className="mt-10 w-full max-w-2xl text-left">
-            <WaitlistForm />
-          </div>
-        </motion.div>
-      </section>
 
       <SiteFooter />
       </main>

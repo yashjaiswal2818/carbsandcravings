@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 const containerVariants = {
@@ -20,106 +21,172 @@ const itemVariants = {
   },
 };
 
-function ArrowBtn() {
-  return (
-    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#2d5a3d] text-white">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <path
-          d="M3.5 9h11M10 4.5l4.5 4.5L10 13.5"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </div>
-  );
-}
+type MealType = "lunch" | "dinner";
 
-/* ── Card 1: Home Cooked ─────────────────────────────────────────────────── */
-function HomeCookedCard() {
+type Meal = {
+  kitchen: string;
+  title: string;
+  badge: string;
+  image: string;
+  description: string;
+  price: string;
+  protein: string;
+  carbs: string;
+  fat: string;
+  calories: string;
+};
+
+const mealsByType: Record<MealType, Meal[]> = {
+  lunch: [
+    {
+      kitchen: "Grill & Grain",
+      title: "Dal Makhani with Jeera Rice",
+      badge: "Veg",
+      image: "/products/card-home-cooked.png",
+      description:
+        "Slow-cooked black dal in a light makhani gravy with fragrant jeera rice and green chutney.",
+      price: "₹149",
+      protein: "18g",
+      carbs: "44g",
+      fat: "10g",
+      calories: "356",
+    },
+    {
+      kitchen: "Maa Ke Haath",
+      title: "Palak Paneer + 2 Phulkas",
+      badge: "High Protein",
+      image: "/hero/home-cooked-meals.png",
+      description:
+        "Fresh spinach-paneer curry with soft phulkas and cucumber salad for a balanced midday meal.",
+      price: "₹159",
+      protein: "23g",
+      carbs: "32g",
+      fat: "12g",
+      calories: "372",
+    },
+    {
+      kitchen: "Namma Oota",
+      title: "Sambar Rice Bowl + Poriyal",
+      badge: "Comfort",
+      image: "/products/card-home-cooked.png",
+      description:
+        "Hearty sambar rice paired with seasonal poriyal and curd for an easy daily lunch routine.",
+      price: "₹129",
+      protein: "14g",
+      carbs: "48g",
+      fat: "8g",
+      calories: "338",
+    },
+  ],
+  dinner: [
+    {
+      kitchen: "Late Night Rasoi",
+      title: "Rajma Bowl with Rice",
+      badge: "Veg",
+      image: "/hero/home-cooked-meals.png",
+      description:
+        "Punjabi-style rajma in tomato gravy, served with steamed rice and fresh onion-cucumber kachumber.",
+      price: "₹149",
+      protein: "17g",
+      carbs: "46g",
+      fat: "9g",
+      calories: "349",
+    },
+    {
+      kitchen: "Protein Plate Co.",
+      title: "Paneer Bhurji + Millet Rotis",
+      badge: "Protein Focus",
+      image: "/products/card-home-cooked.png",
+      description:
+        "Masala paneer bhurji with two millet rotis, designed for a lighter dinner with stronger macros.",
+      price: "₹169",
+      protein: "26g",
+      carbs: "29g",
+      fat: "13g",
+      calories: "361",
+    },
+    {
+      kitchen: "South Bowl Kitchen",
+      title: "Lemon Rice + Egg Masala",
+      badge: "Egg",
+      image: "/hero/home-cooked-meals.png",
+      description:
+        "Tangy lemon rice and homestyle egg masala, packed as a warm no-fuss dinner for weeknights.",
+      price: "₹159",
+      protein: "22g",
+      carbs: "38g",
+      fat: "11g",
+      calories: "374",
+    },
+  ],
+};
+
+function MealCard({ meal }: { meal: Meal }) {
   return (
-    <motion.a
-      href="#waitlist"
+    <motion.article
       variants={itemVariants}
-      className="group relative flex overflow-hidden rounded-[2rem] bg-white card-shadow card-lift aspect-[1776/1362] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d5a3d] focus-visible:ring-offset-2"
+      className="overflow-hidden rounded-[1.8rem] bg-white card-shadow"
     >
-      {/* Left: white text panel */}
-      <div className="flex w-[46%] shrink-0 flex-col justify-between p-6">
-        <div>
-          <h3 className="text-[clamp(1.35rem,_3vw,_2.1rem)] font-bold leading-[1.05] text-[#1e3d29]">
-            Home<br />Cooked
-          </h3>
-          <p className="mt-3 text-[clamp(0.65rem,_1.1vw,_0.85rem)] leading-snug text-[#2d5a3d]">
-            Lunch & dinner for your daily meals.
-          </p>
-          <span className="mt-4 inline-block rounded-full bg-[#2d5a3d] px-4 py-1.5 text-[clamp(0.55rem,_0.9vw,_0.78rem)] font-medium text-white">
-            Meals from ₹120
-          </span>
-        </div>
-        <ArrowBtn />
-      </div>
-
-      {/* Right: food photo fills the panel */}
-      <div className="relative flex-1 overflow-hidden">
+      <div className="relative h-[220px] w-full overflow-hidden">
         <Image
-          src="/products/card-home-cooked.png"
-          alt="Indian home-cooked thali — roti, rice, dal, sabzi"
+          src={meal.image}
+          alt={meal.title}
           fill
-          sizes="(min-width: 768px) 20vw, 55vw"
-          className="object-cover object-center transition duration-300 group-hover:scale-[1.04]"
+          sizes="(min-width: 1024px) 24vw, (min-width: 768px) 32vw, 92vw"
+          className="object-cover object-center"
         />
       </div>
-    </motion.a>
+      <div className="p-6">
+        <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-muted-sage)]">
+          {meal.kitchen}
+        </p>
+        <h3 className="mt-1.5 text-2xl font-semibold leading-tight text-[var(--color-charcoal)]">
+          {meal.title}
+        </h3>
+        <span className="mt-4 inline-flex rounded-full bg-[#dce8dd] px-3 py-1 text-xs font-semibold text-[var(--color-deep-forest)]">
+          {meal.badge}
+        </span>
+        <p className="mt-4 text-[0.98rem] leading-relaxed text-[#4a4a49]">
+          {meal.description}
+        </p>
+        <div className="mt-5 grid grid-cols-2 gap-3 rounded-xl bg-[var(--color-section)] p-3 text-sm text-[var(--color-charcoal)] sm:grid-cols-4">
+          <div>
+            <p className="text-[0.68rem] uppercase tracking-[0.12em] text-[#6a6a69]">Protein</p>
+            <p className="mt-1 font-semibold text-[var(--color-deep-forest)]">{meal.protein}</p>
+          </div>
+          <div>
+            <p className="text-[0.68rem] uppercase tracking-[0.12em] text-[#6a6a69]">Carbs</p>
+            <p className="mt-1 font-semibold">{meal.carbs}</p>
+          </div>
+          <div>
+            <p className="text-[0.68rem] uppercase tracking-[0.12em] text-[#6a6a69]">Fat</p>
+            <p className="mt-1 font-semibold">{meal.fat}</p>
+          </div>
+          <div>
+            <p className="text-[0.68rem] uppercase tracking-[0.12em] text-[#6a6a69]">Calories</p>
+            <p className="mt-1 font-semibold">{meal.calories}</p>
+          </div>
+        </div>
+        <div className="mt-5 flex items-center justify-between">
+          <p className="text-lg font-semibold text-[var(--color-deep-forest)]">{meal.price}</p>
+          <a
+            href="#waitlist"
+            className="inline-flex items-center justify-center rounded-full border border-[var(--color-muted-sage)]/35 px-4 py-2 text-sm font-semibold text-[var(--color-deep-forest)] transition-colors hover:bg-[var(--color-base)]"
+          >
+            Join Waitlist
+          </a>
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
-/* ── Card 2: Meal Plans ───────────────────────────────────────────────── */
-function MealPlansCard() {
-  return (
-    <motion.a
-      href="#waitlist"
-      variants={itemVariants}
-      className="group relative flex overflow-hidden rounded-[2rem] bg-[#eae5dd] card-shadow card-lift aspect-[1776/1362] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d5a3d] focus-visible:ring-offset-2 p-5 gap-4"
-    >
-      {/* Left: text */}
-      <div className="flex w-[46%] shrink-0 flex-col justify-between">
-        <div>
-          <h3 className="text-[clamp(1.35rem,_3vw,_2.1rem)] font-bold leading-[1.05] text-[#1e3d29]">
-            Meal<br />Plans
-          </h3>
-          <p className="mt-3 text-[clamp(0.65rem,_1.1vw,_0.85rem)] leading-snug text-[#2d5a3d] font-medium">
-            ₹1500 for 7 days<br/>₹600 for 3 days.<br/>Try it!
-          </p>
-          <span className="mt-4 inline-block rounded-full bg-[#e63946] px-4 py-1.5 text-[clamp(0.55rem,_0.9vw,_0.78rem)] font-bold text-white animate-pulse shadow-md">
-            Coming soon
-          </span>
-        </div>
-        <ArrowBtn />
-      </div>
-
-      {/* Right: green gradient panel with photo */}
-      <div className="relative flex-1 overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-[#8ca885] via-[#a8be9f] to-[#c6d4be]">
-        <div className="absolute inset-0 flex items-center justify-center p-5">
-          <Image
-            src="/products/card-tiffin-plans.png"
-            alt="Stainless steel meal dabba"
-            width={300}
-            height={300}
-            sizes="(min-width: 768px) 13vw, 40vw"
-            className="w-[82%] h-auto object-contain drop-shadow-xl transition duration-300 group-hover:scale-[1.04]"
-          />
-        </div>
-      </div>
-    </motion.a>
-  );
-}
-
-
-/* ── Section ─────────────────────────────────────────────────────────────── */
 export function ProductCardRow() {
+  const [mealType, setMealType] = useState<MealType>("dinner");
+  const meals = useMemo(() => mealsByType[mealType], [mealType]);
+
   return (
-    <section className="bg-[var(--color-base)] px-6 py-20">
+    <section className="bg-[var(--color-base)] px-6 py-20 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
@@ -131,14 +198,38 @@ export function ProductCardRow() {
             variants={itemVariants}
             className="text-4xl font-semibold text-[var(--color-charcoal)]"
           >
-            Choose your mode
+            Meals for every day
           </motion.h2>
           <motion.p
             variants={itemVariants}
             className="mt-4 text-lg text-[#4a4a49]"
           >
-            One-off meals, weekly plans, or earning from your own kitchen.
+            Pick lunch or dinner and see exactly what you get, including protein
+            and nutrition details.
           </motion.p>
+
+          <motion.div variants={itemVariants} className="mt-8 inline-flex rounded-full bg-white p-1.5 shadow-[0_10px_24px_rgba(45,90,61,0.12)]">
+            <button
+              onClick={() => setMealType("lunch")}
+              className={`rounded-full px-7 py-2.5 text-sm font-semibold transition-colors sm:text-base ${
+                mealType === "lunch"
+                  ? "bg-[var(--color-deep-forest)] text-white"
+                  : "text-[var(--color-charcoal)] hover:bg-[var(--color-base)]"
+              }`}
+            >
+              ☀ Lunch
+            </button>
+            <button
+              onClick={() => setMealType("dinner")}
+              className={`rounded-full px-7 py-2.5 text-sm font-semibold transition-colors sm:text-base ${
+                mealType === "dinner"
+                  ? "bg-[var(--color-deep-forest)] text-white"
+                  : "text-[var(--color-charcoal)] hover:bg-[var(--color-base)]"
+              }`}
+            >
+              🌙 Dinner
+            </button>
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -146,10 +237,12 @@ export function ProductCardRow() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid gap-6 md:grid-cols-2 max-w-4xl"
+          key={mealType}
+          className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
         >
-          <HomeCookedCard />
-          <MealPlansCard />
+          {meals.map((meal) => (
+            <MealCard key={`${mealType}-${meal.title}`} meal={meal} />
+          ))}
         </motion.div>
       </div>
     </section>
