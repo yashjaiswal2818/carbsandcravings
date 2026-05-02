@@ -17,8 +17,8 @@ const plans = [
   },
   {
     id: "kickstart",
-    slot: "Dinner · 4 days",
-    name: "4-Day Plan",
+    slot: "Dinner · 14 days",
+    name: "14-Day Plan",
     tag: "Best value",
     description: "A full working-week of real home-cooked food. Most customers start here.",
     totalPrice: "₹1,499",
@@ -44,28 +44,28 @@ const checkIcon = (
 
 export function SubscriptionPlans() {
   return (
-    <section id="plans" className="bg-[var(--color-section)] px-6 py-[120px] sm:px-10 lg:px-16">
+    <section id="plans" className="bg-[var(--color-section)] px-4 xs:px-6 py-16 sm:py-20 sm:px-10 desktop:py-[120px] lg:px-16">
       <div className="mx-auto max-w-[1240px]">
 
         {/* Header */}
-        <motion.div {...reveal} className="mb-14 flex flex-wrap items-end justify-between gap-10">
+        <motion.div {...reveal} className="mb-10 sm:mb-14 flex flex-wrap items-end justify-between gap-6 sm:gap-10">
           <div>
             <div className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-[var(--color-muted-sage)]">— Plans &amp; pricing</div>
-            <h2 className="mt-4 font-semibold text-[var(--color-charcoal)]" style={{ fontSize: "clamp(36px, 5vw, 62px)", lineHeight: 0.98, letterSpacing: "-0.015em" }}>
+            <h2 className="mt-4 font-semibold text-[var(--color-charcoal)]" style={{ fontSize: "clamp(30px, 5vw, 62px)", lineHeight: 0.98, letterSpacing: "-0.015em" }}>
               Start with a <em className="font-medium" style={{ fontStyle: "italic", color: "#c68050" }}>taste</em>.<br />Stay for a week.
             </h2>
           </div>
-          <p className="max-w-[420px] text-[17px] text-[#5b5a58]">No lock-ins. No auto-renewals. Pay once, eat well.</p>
+          <p className="max-w-[420px] text-[15px] sm:text-[17px] text-[#5b5a58]">No lock-ins. No auto-renewals. Pay once, eat well.</p>
         </motion.div>
 
         {/* Plan cards */}
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 sm:gap-5 tablet:grid-cols-2">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.id}
               {...reveal}
               transition={{ ...reveal.transition, delay: 0.1 + i * 0.1 }}
-              className={`relative flex min-h-[460px] flex-col rounded-[28px] p-9 ${plan.popular ? "bg-[var(--color-deep-forest)] text-white" : "bg-white ambient-shadow"}`}
+              className={`relative flex flex-col rounded-[24px] sm:rounded-[28px] p-6 sm:p-9 ${plan.popular ? "bg-[var(--color-deep-forest)] text-white" : "bg-white ambient-shadow"}`}
             >
               {plan.tag && (
                 <span className="absolute -top-3 left-9 rounded-full bg-[var(--color-champagne)] px-3.5 py-1.5 text-[10.5px] font-bold uppercase tracking-[0.14em] text-[var(--color-deep-forest)]">

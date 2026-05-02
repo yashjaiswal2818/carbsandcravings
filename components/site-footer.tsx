@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-[var(--color-charcoal)] px-6 py-16 text-white/80 sm:px-10 lg:px-16 lg:py-24">
+    <footer className="bg-[var(--color-charcoal)] px-4 xs:px-6 py-10 text-white/80 sm:px-10 lg:px-16 sm:py-12">
       <div className="mx-auto w-full max-w-6xl">
         <div className="grid gap-12 md:grid-cols-6 lg:gap-8">
           <div className="md:col-span-2">
@@ -42,7 +42,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-white/10 pt-8 text-sm">
+        <div className="mt-10 border-t border-white/10 pt-6 text-sm">
           <p>© 2026 Carbs & Cravings. Ghar ka khana, bina ghar ke.</p>
         </div>
       </div>

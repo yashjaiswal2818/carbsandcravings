@@ -84,7 +84,7 @@ export function WaitlistForm({
       onSubmit={handleSubmit}
       className={`${
         compact
-          ? "w-full max-w-2xl rounded-[2rem] bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 shadow-2xl -ml-2 sm:-ml-5 lg:-ml-6"
+          ? "w-full rounded-[2rem] bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 shadow-2xl"
           : "ambient-shadow w-full max-w-xl rounded-[2rem] bg-[#f7f1e8]/95 p-6 sm:p-8"
       } ${className}`}
     >

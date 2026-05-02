@@ -54,7 +54,7 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[var(--color-base)] font-[var(--font-body)] text-[var(--color-charcoal)]">
+      <body className="min-h-full overflow-x-hidden bg-[var(--color-base)] font-[var(--font-body)] text-[var(--color-charcoal)]">
         {children}
       </body>
     </html>
