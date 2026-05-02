@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
 import { motion } from "framer-motion";
 
 const cuisines = [
   { label: "North Indian Thali", image: "/cuisines/cuisine-north-indian-thali.webp" },
-  { label: "South Indian Dosa", image: "/cuisines/cuisine-south-indian-dosa.webp" },
-  { label: "South Indian Meals", image: "/cuisines/cuisine-south-tiffin.webp" },
+  { label: "South Indian Thali", image: "/cuisines/cuisine-south-tiffin.webp" },
 ];
 
 const reveal = {
@@ -18,79 +16,41 @@ const reveal = {
 };
 
 export function CuisineRow() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  function scroll(direction: "left" | "right") {
-    scrollRef.current?.scrollBy({ left: direction === "right" ? 280 : -280, behavior: "smooth" });
-  }
-
   return (
-    <section className="bg-[var(--color-section)] py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <motion.div {...reveal} className="flex items-end justify-between gap-4">
-          <div>
-            <h2 className="text-4xl font-semibold text-[var(--color-charcoal)]">
-              Meals you&apos;ll find this week
-            </h2>
-            <p className="mt-4 text-lg text-[#4a4a49]">
-              Freshly prepared by local home cooks.
-            </p>
-          </div>
-          <div className="hidden shrink-0 items-center gap-2 sm:flex">
-            <button
-              onClick={() => scroll("left")}
-              aria-label="Scroll left"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-muted-sage)]/40 bg-white text-[var(--color-charcoal)] transition hover:bg-[var(--color-deep-forest)] hover:text-white hover:border-[var(--color-deep-forest)]"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              aria-label="Scroll right"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-muted-sage)]/40 bg-white text-[var(--color-charcoal)] transition hover:bg-[var(--color-deep-forest)] hover:text-white hover:border-[var(--color-deep-forest)]"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-          </div>
+    <section className="bg-[var(--color-section)] px-6 py-20 sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-6xl">
+        <motion.div {...reveal}>
+          <h2 className="text-4xl font-semibold text-[var(--color-charcoal)]">
+            Meals you&apos;ll find this week
+          </h2>
+          <p className="mt-4 text-lg text-[#4a4a49]">
+            Freshly prepared by local home cooks.
+          </p>
         </motion.div>
-      </div>
 
-      <motion.div
-        ref={scrollRef}
-        {...reveal}
-        transition={{ ...reveal.transition, delay: 0.1 }}
-        className="mt-10 flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-8"
-      >
-        {cuisines.map((cuisine, index) => (
-          <div
-            key={cuisine.label}
-            className={`group relative h-[240px] w-[240px] shrink-0 snap-center overflow-hidden rounded-2xl ${
-              index === 0
-                ? "ml-[max(1.5rem,calc((100%-72rem)/2))]"
-                : ""
-            } ${
-              index === cuisines.length - 1
-                ? "mr-[max(1.5rem,calc((100%-72rem)/2))]"
-                : ""
-            }`}
-          >
-            <Image
-              src={cuisine.image}
-              alt={cuisine.label}
-              fill
-              sizes="240px"
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            
-            {/* Caption */}
-            <p className="absolute bottom-4 left-4 right-4 text-lg font-medium leading-tight text-white">
-              {cuisine.label}
-            </p>
-          </div>
-        ))}
-      </motion.div>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          {cuisines.map((cuisine, i) => (
+            <motion.div
+              key={cuisine.label}
+              {...reveal}
+              transition={{ ...reveal.transition, delay: i * 0.1 }}
+              className="group relative h-[280px] w-full overflow-hidden rounded-[1.75rem] sm:h-[320px]"
+            >
+              <Image
+                src={cuisine.image}
+                alt={cuisine.label}
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              <p className="absolute bottom-5 left-5 right-5 text-xl font-semibold leading-tight text-white">
+                {cuisine.label}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

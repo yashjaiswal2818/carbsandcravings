@@ -8,7 +8,6 @@ type WaitlistFormProps = {
 };
 
 const PHONE_PATTERN = /^[6-9]\d{9}$/;
-const STORAGE_KEY = "carbs-and-cravings-waitlist";
 
 export function WaitlistForm({
   className = "",
@@ -19,21 +18,15 @@ export function WaitlistForm({
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
-  const [submitted, setSubmitted] = useState(() => {
-    try {
-      const existing = localStorage.getItem(STORAGE_KEY);
-      return existing ? (JSON.parse(existing) as unknown[]).length > 0 : false;
-    } catch {
-      return false;
-    }
-  });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const ctaLabel = useMemo(
-    () => (submitted ? "You're on the list" : "Join Waitlist"),
-    [submitted],
+    () => (submitted ? "You're on the list" : loading ? "Submitting..." : "Join Waitlist"),
+    [submitted, loading],
   );
 
-  const handleSubmit = (event: { preventDefault(): void }) => {
+  const handleSubmit = async (event: { preventDefault(): void }) => {
     event.preventDefault();
     setError("");
 
@@ -53,31 +46,36 @@ export function WaitlistForm({
       return;
     }
 
-    const entry = {
-      name: name.trim(),
-      phone: normalizedPhone,
-      email: email.trim() || undefined,
-      location: location.trim(),
-      submittedAt: new Date().toISOString(),
-    };
+    setLoading(true);
 
     try {
-      const existingEntries = localStorage.getItem(STORAGE_KEY);
-      const parsedEntries = existingEntries
-        ? (JSON.parse(existingEntries) as Array<typeof entry>)
-        : [];
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: normalizedPhone,
+          email: email.trim() || undefined,
+          location: location.trim(),
+        }),
+      });
 
-      parsedEntries.push(entry);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(parsedEntries));
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError((data as { error?: string }).error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+      setName("");
+      setPhone("");
+      setEmail("");
+      setLocation("");
     } catch {
-      // Storage can fail in private browsing; keep UX success-first.
+      setError("Could not reach the server. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setSubmitted(true);
-    setName("");
-    setPhone("");
-    setEmail("");
-    setLocation("");
   };
 
   return (
@@ -142,7 +140,7 @@ export function WaitlistForm({
           />
           <button
             type="submit"
-            disabled={submitted}
+            disabled={submitted || loading}
             className="col-span-full mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-[var(--color-champagne)] px-6 py-4 text-base font-semibold text-[var(--color-deep-forest)] transition duration-300 hover:scale-[1.01] hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-90 shadow-md"
           >
             {ctaLabel}
@@ -187,7 +185,7 @@ export function WaitlistForm({
           </div>
           <button
             type="submit"
-            disabled={submitted}
+            disabled={submitted || loading}
             className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[var(--color-deep-forest)] px-6 py-4 text-base font-semibold text-white transition duration-300 hover:scale-[1.01] hover:bg-[#234a31] disabled:cursor-not-allowed disabled:opacity-90 shadow-md"
           >
             {ctaLabel}
@@ -198,8 +196,7 @@ export function WaitlistForm({
       {error && <p className={`mt-4 text-sm font-medium ${compact ? "text-[#ffa899]" : "text-[#8a3f2b]"}`}>{error}</p>}
       {submitted && (
         <p className={`mt-4 text-sm font-medium ${compact ? "text-[#b2d8be]" : "text-[var(--color-muted-sage)]"}`}>
-          You&apos;re on the list! We&apos;ll reach out when we launch in your
-          area. 🍛
+          You&apos;re on the list! We&apos;ll reach out when we launch in your area.
         </p>
       )}
     </form>

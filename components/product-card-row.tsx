@@ -125,9 +125,9 @@ function MealCard({ meal }: { meal: Meal }) {
   return (
     <motion.article
       variants={itemVariants}
-      className="overflow-hidden rounded-[1.8rem] bg-white card-shadow"
+      className="flex flex-col overflow-hidden rounded-[1.8rem] bg-white card-shadow"
     >
-      <div className="relative h-[220px] w-full overflow-hidden">
+      <div className="relative h-[220px] w-full shrink-0 overflow-hidden">
         <Image
           src={meal.image}
           alt={meal.title}
@@ -136,14 +136,14 @@ function MealCard({ meal }: { meal: Meal }) {
           className="object-cover object-center"
         />
       </div>
-      <div className="p-6">
+      <div className="flex flex-1 flex-col p-6">
         <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-muted-sage)]">
           {meal.kitchen}
         </p>
         <h3 className="mt-1.5 text-2xl font-semibold leading-tight text-[var(--color-charcoal)]">
           {meal.title}
         </h3>
-        <span className="mt-4 inline-flex rounded-full bg-[#dce8dd] px-3 py-1 text-xs font-semibold text-[var(--color-deep-forest)]">
+        <span className="mt-4 inline-flex self-start rounded-full bg-[#dce8dd] px-3 py-1 text-xs font-semibold text-[var(--color-deep-forest)]">
           {meal.badge}
         </span>
         <p className="mt-4 text-[0.98rem] leading-relaxed text-[#4a4a49]">
@@ -167,7 +167,8 @@ function MealCard({ meal }: { meal: Meal }) {
             <p className="mt-1 font-semibold">{meal.calories}</p>
           </div>
         </div>
-        <div className="mt-5 flex items-center justify-between">
+        {/* mt-auto ensures price+button always sit at the card bottom */}
+        <div className="mt-auto pt-5 flex items-center justify-between">
           <p className="text-lg font-semibold text-[var(--color-deep-forest)]">{meal.price}</p>
           <a
             href="#waitlist"
@@ -217,7 +218,7 @@ export function ProductCardRow() {
                   : "text-[var(--color-charcoal)] hover:bg-[var(--color-base)]"
               }`}
             >
-              ☀ Lunch
+              Lunch
             </button>
             <button
               onClick={() => setMealType("dinner")}
@@ -227,7 +228,7 @@ export function ProductCardRow() {
                   : "text-[var(--color-charcoal)] hover:bg-[var(--color-base)]"
               }`}
             >
-              🌙 Dinner
+              Dinner
             </button>
           </motion.div>
         </motion.div>
