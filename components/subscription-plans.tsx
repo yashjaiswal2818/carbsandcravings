@@ -22,7 +22,7 @@ const plans = [
     tag: "Best value",
     description: "A full working-week of real home-cooked food. Most customers start here.",
     totalPrice: "₹1,499",
-    perMeal: "₹374 per meal · 4 meals",
+    perMeal: "₹107 per meal · 14 meals",
     features: ["Choose lunch or dinner", "Macros on every plate", "Priority slot booking", "Dedicated cook match", "Skip a day, no charge"],
     popular: true,
     cta: "Reserve weekly spot",
