@@ -4,245 +4,228 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { SiteNav } from "@/components/site-nav";
 import { WaitlistForm } from "@/components/waitlist-form";
-import { ProductCardRow } from "@/components/product-card-row";
-import { CuisineRow } from "@/components/cuisine-row";
-import { InterruptStrip } from "@/components/interrupt-strip";
+import { MenuSection } from "@/components/cuisine-row";
 import { SiteFooter } from "@/components/site-footer";
 import { SubscriptionPlans } from "@/components/subscription-plans";
-
-const steps = [
-  {
-    title: "Browse kitchens",
-    detail: "See nearby home cooks and today's menu.",
-    image: "/working/img1.jpeg",
-  },
-  {
-    title: "Pick lunch or dinner",
-    detail: "Choose a meal that fits your day.",
-    image: "/working/img2.jpeg",
-  },
-  {
-    title: "Order in a tap",
-    detail: "Schedule quickly with your preferred slot.",
-    image: "/working/img3.jpeg",
-  },
-  {
-    title: "Enjoy it fresh",
-    detail: "Warm home-style food delivered to you.",
-    image: "/working/img4.jpeg",
-  },
-];
-
-const trustPoints = [
-  {
-    title: "Verified home cooks",
-    detail: "Every cook on our platform is personally verified — we visit their kitchen before they go live.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 2l2.5 5.5 6 .9-4.3 4.2 1 6-5.2-2.7L6.8 18.6l1-6L3.5 8.4l6-.9L12 2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    title: "Hygiene-first kitchens",
-    detail: "Clean preparation standards, proper storage, and fresh ingredients sourced daily.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    title: "Transparent pricing",
-    detail: "What you see is what you pay. No platform fees, no hidden delivery charges.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    title: "Reliable delivery",
-    detail: "Meals delivered in insulated tiffin boxes within your committed time window, every day.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3M9 17h10a2 2 0 002-2v-5a2 2 0 00-2-2H9v9zM7 17a2 2 0 104 0 2 2 0 00-4 0zm10 0a2 2 0 104 0 2 2 0 00-4 0z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-];
+import { CookSpotlight } from "@/components/interrupt-strip";
 
 const reveal = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.25 },
+  viewport: { once: true, amount: 0.2 },
   transition: { duration: 0.5, ease: "easeOut" as const },
 };
+
+const howSteps = [
+  { num: "01", title: "Browse nearby kitchens", detail: "See cooks within 2 km and today's menu.", image: "/working/img1.jpeg" },
+  { num: "02", title: "Pick lunch or dinner", detail: "Choose what fits your day, your goals.", image: "/working/img2.jpeg" },
+  { num: "03", title: "Schedule a slot", detail: "Lock in your delivery window in seconds.", image: "/working/img3.jpeg" },
+  { num: "04", title: "Eat warm, eat home", detail: "Delivered in insulated steel tiffins.", image: "/working/img4.jpeg" },
+];
 
 export default function Home() {
   return (
     <>
       <SiteNav />
-      <main id="top" className="bg-[var(--color-base)] pt-[72px]">
+      <main id="top" className="bg-[var(--color-base)]">
 
-        {/* Hero */}
-        <section className="relative isolate overflow-hidden bg-[var(--color-base)] text-[var(--color-charcoal)]">
-          <div className="pointer-events-none absolute -left-36 top-24 h-72 w-72 rounded-full bg-[#3f7f55]/35 blur-3xl" />
-          <div className="pointer-events-none absolute -right-24 bottom-14 h-64 w-64 rounded-full bg-[#6f9975]/25 blur-3xl" />
+        {/* ── HERO ─────────────────────────────────────────────────── */}
+        <section className="relative isolate overflow-visible bg-[var(--color-base)] pt-[72px]">
+          <div className="pointer-events-none absolute -left-40 top-28 h-80 w-80 rounded-full bg-[#3f7f55]/18 blur-[80px]" />
+          <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-[#c68050]/16 blur-[80px]" />
 
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] lg:block"
-            style={{
-              maskImage: "linear-gradient(to right, transparent 0%, black 28%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 28%)",
-            }}
-          >
-            <Image
-              src="/hero/home-cooked-meals.png"
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 1024px) 48vw, 0px"
-              className="object-cover object-center"
-            />
-          </motion.div>
+          <div className="mx-auto max-w-[1240px] px-8 pb-16 pt-8 lg:pb-20 lg:pt-12">
+            <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
 
-          <div className="relative z-10 mx-auto flex min-h-[calc(100vh-72px)] max-w-6xl flex-col justify-center px-6 py-16 sm:py-20 lg:py-24">
-            <div className="lg:w-[58%]">
+              {/* Left copy */}
               <motion.div {...reveal}>
-                <p className="inline-flex items-center gap-3 rounded-full bg-[var(--color-champagne)] px-5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[#b7703f]">
-                  <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-[#edc3a0]" />
-                  Coming soon — Marathahalli, Bangalore
-                </p>
-                <h1 className="mt-8 text-[3rem] font-semibold leading-[0.95] text-[var(--color-deep-forest)] sm:text-[4.2rem] lg:text-[5.1rem]">
-                  <span className="block">COMING</span>
-                  <span className="block text-[#c68050]" style={{ fontStyle: "italic", fontWeight: 500 }}>
-                    SOON.
-                  </span>
+                <span className="inline-flex items-center gap-2.5 rounded-full bg-[var(--color-champagne)] px-3.5 py-2 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-[#b7703f]">
+                  <span className="dot-live inline-block h-2 w-2 rounded-full bg-[#c68050]" />
+                  Marathahalli, Bangalore — Launching soon
+                </span>
+
+                <h1
+                  className="mt-7 whitespace-nowrap font-semibold text-[var(--color-deep-forest)]"
+                  style={{ fontSize: "clamp(52px, 7.5vw, 110px)", lineHeight: 0.95, letterSpacing: "-0.015em" }}
+                >
+                  Coming{" "}
+                  <em className="font-medium" style={{ fontStyle: "italic", color: "#c68050" }}>Soon.</em>
                 </h1>
-                <p className="mt-7 max-w-xl text-[1.7rem] font-semibold leading-tight text-[var(--color-charcoal)] sm:text-[2rem]">
-                  Fresh home-cooked meals,
-                  <br />
-                  delivered to your door.
+
+                <p className="mt-7 max-w-[460px] text-[19px] font-medium leading-[1.4] text-[var(--color-charcoal)]">
+                  Real home-cooked meals from kitchens 2 km from your door.
                 </p>
-                <p className="mt-5 max-w-xl text-lg text-[#5b5a58]">
-                  Real food made by verified home cooks in your neighbourhood — warm, familiar, and ready when you need it. No cooking, no stress.
+                <p className="mt-3.5 max-w-[460px] text-[15.5px] leading-relaxed text-[#5b5a58]">
+                  Fresh dal, soft rotis, sabzi that tastes like Sunday afternoon. Verified cooks. Macros on every plate. Delivered warm in steel tiffins.
                 </p>
-                <div className="mt-10 flex flex-wrap items-center gap-4">
+
+                {/* CTAs — always side-by-side, no wrapping */}
+                <div className="mt-9 flex gap-3">
                   <a
                     href="#waitlist"
-                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-deep-forest)] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#234a31]"
+                    className="inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--color-deep-forest)] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#234a31]"
                   >
-                    Reserve Your Spot
+                    Reserve your spot
                   </a>
                   <a
-                    href="#how-it-works"
-                    className="inline-flex items-center justify-center rounded-full border border-[var(--color-muted-sage)]/35 bg-white/80 px-8 py-3 text-base font-semibold text-[var(--color-deep-forest)] transition-colors hover:bg-white"
+                    href="#menu"
+                    className="inline-flex shrink-0 items-center justify-center rounded-full border border-[#5a7156]/30 bg-white/70 px-6 py-3.5 text-[14px] font-semibold text-[var(--color-deep-forest)] transition-colors hover:bg-white"
                   >
-                    Learn More
+                    Peek at the menu
                   </a>
                 </div>
+
+              </motion.div>
+
+              {/* Right hero art */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+                className="relative hidden lg:block"
+                style={{ aspectRatio: "1/1.05" }}
+              >
+                <div className="absolute inset-0 overflow-hidden rounded-[28px]" style={{ boxShadow: "0 30px 80px -30px rgba(45,90,61,0.45), 0 8px 30px rgba(0,0,0,0.08)" }}>
+                  <Image src="/cuisines/cuisine-north-indian-thali.webp" alt="A brass thali with dal, palak paneer, jeera rice and roti" fill priority sizes="(min-width: 1024px) 45vw, 0vw" className="object-cover" />
+                </div>
+                {/* Chip — Today's plate */}
+                <div className="absolute -left-6 top-6 flex items-center gap-3 rounded-[18px] bg-white px-[18px] py-3.5" style={{ boxShadow: "0 18px 40px -16px rgba(40,44,63,0.25)" }}>
+                  <div>
+                    <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-muted-sage)]">Today&apos;s plate</div>
+                    <div className="mt-0.5 font-semibold text-[var(--color-charcoal)]" style={{ fontFamily: "var(--font-display)", fontSize: "18px" }}>Dal · Palak Paneer · Rice</div>
+                  </div>
+                </div>
+
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Trust Section */}
-        <section className="bg-white px-6 py-16 sm:px-10 lg:px-16">
-          <motion.div {...reveal} className="mx-auto max-w-6xl">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {trustPoints.map((point) => (
-                <div
-                  key={point.title}
-                  className="rounded-[1.5rem] bg-[var(--color-base)] p-6"
-                >
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-deep-forest)]/10 text-[var(--color-deep-forest)]">
-                    {point.icon}
-                  </span>
-                  <p className="mt-4 text-base font-semibold text-[var(--color-charcoal)]">
-                    {point.title}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-[#5a5a58]">
-                    {point.detail}
-                  </p>
-                </div>
-              ))}
+        {/* ── MARQUEE ────────────────────────────��─────────────────── */}
+        <div aria-hidden="true" className="overflow-hidden border-t border-white/6 bg-[var(--color-deep-forest)] py-[18px]">
+          <div
+            className="marquee-track flex gap-14 whitespace-nowrap"
+            style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "24px", fontWeight: 500, color: "var(--color-champagne)" }}
+          >
+            {["North Indian Thali", "Masala Dosa Tiffin", "Fresh dal & rotis", "Steel tiffin delivery", "Macros on every plate", "Verified home cooks",
+              "North Indian Thali", "Masala Dosa Tiffin", "Fresh dal & rotis", "Steel tiffin delivery", "Macros on every plate", "Verified home cooks"
+            ].map((item, i) => (
+              <span key={i} className="flex items-center gap-14">
+                <span>{item}</span>
+                <span style={{ color: "#c68050", fontStyle: "normal" }}>✦</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* ── MENU ───────────────────────��─────────────────────────── */}
+        <MenuSection />
+
+        {/* ── MACROS ───────────────────────────────────────────────── */}
+        <section className="bg-[var(--color-base)] px-6 py-[120px] sm:px-10 lg:px-16">
+          <div className="mx-auto max-w-[1240px]">
+            <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
+              <motion.div {...reveal} className="relative overflow-hidden rounded-[28px]" style={{ aspectRatio: "1/0.7", boxShadow: "0 30px 80px -36px rgba(45,90,61,0.45)" }}>
+                <Image src="/hero/home-cooked-meals.png" alt="Dal, sabzi and rotis" fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
+                {[{ v: "23g", k: "Protein", pos: "left-6 top-6" }, { v: "372", k: "Calories", pos: "right-6 top-6" }, { v: "12g", k: "Healthy fats", pos: "bottom-6", style: { left: "38%" } }].map((chip) => (
+                  <div key={chip.k} className={`absolute flex items-baseline gap-2 rounded-2xl px-[18px] py-3 ${chip.pos}`} style={{ background: "rgba(255,255,255,0.96)", boxShadow: "0 14px 30px -10px rgba(0,0,0,0.18)", ...(chip.style ?? {}) }}>
+                    <span className="font-semibold leading-none text-[var(--color-deep-forest)]" style={{ fontFamily: "var(--font-display)", fontSize: "22px" }}>{chip.v}</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-muted-sage)]">{chip.k}</span>
+                  </div>
+                ))}
+              </motion.div>
+              <motion.div {...reveal} transition={{ ...reveal.transition, delay: 0.12 }}>
+                <div className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-[var(--color-muted-sage)]">— Honest food</div>
+                <h2 className="mt-4 font-semibold text-[var(--color-charcoal)]" style={{ fontSize: "clamp(36px, 4.8vw, 58px)", lineHeight: 0.98, letterSpacing: "-0.015em" }}>
+                  Every plate, <em className="font-medium" style={{ fontStyle: "italic", color: "#c68050" }}>weighed</em> &amp; labelled.
+                </h2>
+                <p className="mt-6 max-w-[480px] text-[17px] text-[#5b5a58]">
+                  Most &ldquo;home tiffins&rdquo; guess the macros. We don&apos;t. Each cook follows a portion sheet — your protein, carbs, fat and calories are printed on the lid.
+                </p>
+                <ul className="mt-8 flex flex-col gap-[18px]">
+                  {["Recipes standardised with a nutritionist — same dal, every time.", "Portions weighed in-kitchen. Steel boxes labelled before delivery.", "Track your daily protein in the app — meet your goals on home food."].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3.5 text-[16px] text-[var(--color-charcoal)]">
+                      <span className="min-w-[28px] shrink-0 font-medium" style={{ fontFamily: "var(--font-display)", fontStyle: "italic", color: "#c68050", fontSize: "18px" }}>0{i + 1}</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </section>
 
-        {/* Subscription Plans */}
+        {/* ── PLANS ────────────────────────────────────────────────── */}
         <SubscriptionPlans />
 
-        {/* Meal Cards */}
-        <ProductCardRow />
-
-        {/* Cuisine Row */}
-        <CuisineRow />
-
-        {/* How It Works */}
-        <section id="how-it-works" className="bg-white px-6 py-20 sm:px-10 lg:px-16">
-          <motion.div {...reveal} className="mx-auto w-full max-w-6xl">
-            <h2 className="text-4xl font-semibold text-[var(--color-charcoal)]">
-              How it works
-            </h2>
-            <p className="mt-4 max-w-2xl text-base text-[#585755] sm:text-lg">
-              From craving to checkout in 4 quick steps.
-            </p>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {steps.map((step, index) => (
-                <div
-                  key={step.title}
-                  className="ambient-shadow relative overflow-hidden rounded-[1.75rem] bg-[var(--color-card)] p-6"
-                >
-                  <div className="relative">
-                    <Image
-                      src={step.image}
-                      alt={step.title}
-                      width={640}
-                      height={400}
-                      unoptimized
-                      className="h-44 w-full rounded-2xl object-cover"
-                    />
-                    <span className="absolute right-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold tracking-[0.12em] text-[var(--color-muted-sage)] shadow-sm backdrop-blur">
-                      0{index + 1}
-                    </span>
+        {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
+        <section id="how" className="bg-[var(--color-base)] px-6 py-[120px] sm:px-10 lg:px-16">
+          <div className="mx-auto max-w-[1240px]">
+            <motion.div {...reveal} className="mb-14 flex flex-wrap items-end justify-between gap-10">
+              <div>
+                <div className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-[var(--color-muted-sage)]">— How it works</div>
+                <h2 className="mt-4 font-semibold text-[var(--color-charcoal)]" style={{ fontSize: "clamp(36px, 5vw, 62px)", lineHeight: 0.98, letterSpacing: "-0.015em" }}>
+                  From craving to <em className="font-medium" style={{ fontStyle: "italic", color: "#c68050" }}>tiffin</em>,<br />in four taps.
+                </h2>
+              </div>
+              <p className="max-w-[420px] text-[17px] text-[#5b5a58]">No browsing fatigue. The day&apos;s menu is curated; your job is to pick a slot and show up hungry.</p>
+            </motion.div>
+            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+              {howSteps.map((step, i) => (
+                <motion.div key={step.num} {...reveal} transition={{ ...reveal.transition, delay: i * 0.08 }} className="relative overflow-hidden rounded-[22px]" style={{ aspectRatio: "3/2" }}>
+                  <Image src={step.image} alt={step.title} fill sizes="(min-width: 1024px) 24vw, (min-width: 640px) 48vw, 92vw" className="object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/78" />
+                  <span className="absolute left-[18px] top-[18px] leading-none text-white opacity-95" style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "56px", fontWeight: 500 }}>{step.num}</span>
+                  <div className="absolute bottom-[22px] left-[22px] right-[22px] text-white">
+                    <div className="font-semibold leading-[1.1]" style={{ fontFamily: "var(--font-display)", fontSize: "22px" }}>{step.title}</div>
+                    <div className="mt-2 text-[13.5px] leading-[1.45] text-white/85">{step.detail}</div>
                   </div>
-                  <p className="mt-5 text-xl font-semibold leading-tight text-[var(--color-charcoal)]">
-                    {step.title}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-[#5f5e5c]">
-                    {step.detail}
-                  </p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </section>
 
-        {/* Waitlist */}
-        <section id="waitlist" className="bg-[var(--color-champagne)]/40 px-6 py-20 sm:px-10 lg:px-16">
-          <motion.div
-            {...reveal}
-            className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center"
-          >
-            <h2 className="text-3xl font-semibold text-[var(--color-charcoal)] sm:text-4xl">
-              Ready to try home-style meals?
-            </h2>
-            <p className="mt-4 max-w-2xl text-base text-[#4a4a49]">
-              Join the waitlist and we&apos;ll let you know as soon as Carbs &amp; Cravings launches in your neighbourhood.
-            </p>
-            <div className="mt-10 w-full max-w-2xl text-left">
-              <WaitlistForm />
+        {/* ── COOK SPOTLIGHT ───────────────────────────────────────── */}
+        <CookSpotlight />
+
+        {/* ── WAITLIST ─────────────────────────────────────────────── */}
+        <section id="waitlist" className="relative overflow-hidden py-[120px] text-white" style={{ background: "var(--color-charcoal)" }}>
+          <div className="absolute inset-0 opacity-35">
+            <Image src="/cuisines/cuisine-biryani.webp" alt="" fill className="object-cover" aria-hidden="true" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(120deg, rgba(44,42,41,0.95) 0%, rgba(45,90,61,0.85) 100%)" }} />
+          </div>
+          <div className="relative z-10 mx-auto max-w-[1240px] px-8">
+            <div className="grid items-center gap-16 lg:grid-cols-[1fr_1.1fr]">
+              <motion.div {...reveal}>
+                <div className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-[var(--color-champagne)]">— Join the waitlist</div>
+                <h2 className="mt-4 font-semibold text-white" style={{ fontSize: "clamp(36px, 4.8vw, 58px)", lineHeight: 1, letterSpacing: "-0.015em" }}>
+                  Get freshly prepared{" "}
+                  <em className="font-medium" style={{ fontStyle: "italic", color: "var(--color-champagne)" }}>home meals</em>{" "}
+                  at your door.
+                </h2>
+                <p className="mt-5 max-w-[420px] text-[17px] text-white/72">
+                  Join us to get real home-cooked food made by verified local cooks — warm, nutritious, and delivered fresh to your doorstep every day.
+                </p>
+                <ul className="mt-8 flex flex-col gap-4">
+                  {[
+                    "Fresh dal, sabzi & rotis cooked daily by home cooks near you",
+                    "Full macros on every meal — protein, carbs, fat & calories",
+                    "Delivered warm in steel tiffins, right to your door",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-[15px] text-white/80">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-champagne)]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+              <motion.div {...reveal} transition={{ ...reveal.transition, delay: 0.1 }}>
+                <WaitlistForm compact />
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </section>
-
-        <InterruptStrip id="for-cooks" />
 
         <SiteFooter />
       </main>

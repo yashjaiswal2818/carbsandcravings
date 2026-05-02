@@ -28,23 +28,8 @@ export function SiteFooter() {
               </ul>
             </div>
 
-            <div className="min-w-0">
-              <h3 className="text-sm font-semibold text-white">Contact</h3>
-              <ul className="mt-5 space-y-4 text-sm">
-                <li><a href="mailto:hello@carbsandcravings.in" className="transition hover:text-white">Help & Support</a></li>
-                <li><a href="mailto:hello@carbsandcravings.in" className="transition hover:text-white">Partner with us</a></li>
-                <li><a href="mailto:hello@carbsandcravings.in" className="transition hover:text-white break-all">hello@carbsandcravings.in</a></li>
-              </ul>
-            </div>
 
-            <div className="min-w-0">
-              <h3 className="text-sm font-semibold text-white">Legal</h3>
-              <ul className="mt-5 space-y-4 text-sm">
-                <li><a href="#" className="transition hover:text-white">Terms & Conditions</a></li>
-                <li><a href="#" className="transition hover:text-white">Privacy Policy</a></li>
-                <li><a href="#" className="transition hover:text-white">Cookie Policy</a></li>
-              </ul>
-            </div>
+
 
             <div className="min-w-0">
               <h3 className="text-sm font-semibold text-white">Social</h3>

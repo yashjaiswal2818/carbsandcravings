@@ -1,45 +1,31 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-
-type MealSlot = "lunch" | "dinner";
 
 const plans = [
   {
     id: "starter",
+    slot: "Dinner · 3 days",
     name: "3-Day Trial",
-    days: 3,
-    meals: 3,
-    totalPrice: "₹699",
-    perMeal: "₹233",
     tag: null,
-    description: "Try it before you commit. 3 freshly cooked meals delivered to your door.",
-    features: [
-      "Choose lunch or dinner",
-      "Protein & nutrition info",
-      "Doorstep delivery",
-      "Cancel anytime",
-    ],
+    description: "Try us before you commit. Three freshly cooked dinners delivered to your door.",
+    totalPrice: "₹699",
+    perMeal: "₹233 per meal · 3 meals",
+    features: ["Choose lunch or dinner", "Macros on every plate", "Doorstep delivery in steel tiffins", "Cancel anytime"],
     popular: false,
+    cta: "Reserve trial spot",
   },
   {
     id: "kickstart",
+    slot: "Dinner · 4 days",
     name: "4-Day Plan",
-    days: 4,
-    meals: 4,
-    totalPrice: "₹1,499",
-    perMeal: "₹374",
     tag: "Best value",
     description: "A full working-week of real home-cooked food. Most customers start here.",
-    features: [
-      "Choose lunch or dinner",
-      "Protein & nutrition info",
-      "Priority slot booking",
-      "Doorstep delivery",
-      "Dedicated cook match",
-    ],
+    totalPrice: "₹1,499",
+    perMeal: "₹374 per meal · 4 meals",
+    features: ["Choose lunch or dinner", "Macros on every plate", "Priority slot booking", "Dedicated cook match", "Skip a day, no charge"],
     popular: true,
+    cta: "Reserve weekly spot",
   },
 ];
 
@@ -57,142 +43,77 @@ const checkIcon = (
 );
 
 export function SubscriptionPlans() {
-  const [slot, setSlot] = useState<MealSlot>("dinner");
-
   return (
-    <section id="plans" className="bg-[var(--color-section)] px-6 py-20 sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-6xl">
+    <section id="plans" className="bg-[var(--color-section)] px-6 py-[120px] sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-[1240px]">
 
         {/* Header */}
-        <motion.div {...reveal} className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-muted-sage)]">
-            Plans & Pricing
-          </p>
-          <h2 className="mt-3 text-4xl font-semibold text-[var(--color-charcoal)]">
-            Simple plans, no surprises
-          </h2>
-          <p className="mt-4 text-lg text-[#4a4a49]">
-            Start with a trial. Scale when you&apos;re ready. No lock-ins, no hidden fees.
-          </p>
-        </motion.div>
-
-        {/* Meal toggle */}
-        <motion.div {...reveal} transition={{ ...reveal.transition, delay: 0.08 }} className="mt-8">
-          <div className="inline-flex rounded-full bg-white p-1.5 shadow-[0_8px_20px_rgba(45,90,61,0.10)]">
-            <button
-              onClick={() => setSlot("lunch")}
-              className={`rounded-full px-7 py-2.5 text-sm font-semibold transition-colors sm:text-base ${
-                slot === "lunch"
-                  ? "bg-[var(--color-deep-forest)] text-white"
-                  : "text-[var(--color-charcoal)] hover:bg-[var(--color-base)]"
-              }`}
-            >
-              Lunch
-            </button>
-            <button
-              onClick={() => setSlot("dinner")}
-              className={`rounded-full px-7 py-2.5 text-sm font-semibold transition-colors sm:text-base ${
-                slot === "dinner"
-                  ? "bg-[var(--color-deep-forest)] text-white"
-                  : "text-[var(--color-charcoal)] hover:bg-[var(--color-base)]"
-              }`}
-            >
-              Dinner
-            </button>
+        <motion.div {...reveal} className="mb-14 flex flex-wrap items-end justify-between gap-10">
+          <div>
+            <div className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-[var(--color-muted-sage)]">— Plans &amp; pricing</div>
+            <h2 className="mt-4 font-semibold text-[var(--color-charcoal)]" style={{ fontSize: "clamp(36px, 5vw, 62px)", lineHeight: 0.98, letterSpacing: "-0.015em" }}>
+              Start with a <em className="font-medium" style={{ fontStyle: "italic", color: "#c68050" }}>taste</em>.<br />Stay for a week.
+            </h2>
           </div>
+          <p className="max-w-[420px] text-[17px] text-[#5b5a58]">No lock-ins. No auto-renewals. Pay once, eat well.</p>
         </motion.div>
 
         {/* Plan cards */}
-        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.id}
               {...reveal}
               transition={{ ...reveal.transition, delay: 0.1 + i * 0.1 }}
-              className={`relative flex flex-col rounded-[2rem] p-8 ${
-                plan.popular
-                  ? "bg-[var(--color-deep-forest)] text-white ring-0"
-                  : "bg-white ambient-shadow"
-              }`}
+              className={`relative flex min-h-[460px] flex-col rounded-[28px] p-9 ${plan.popular ? "bg-[var(--color-deep-forest)] text-white" : "bg-white ambient-shadow"}`}
             >
               {plan.tag && (
-                <span className="absolute -top-3 left-8 rounded-full bg-[var(--color-champagne)] px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-deep-forest)] shadow-sm">
+                <span className="absolute -top-3 left-9 rounded-full bg-[var(--color-champagne)] px-3.5 py-1.5 text-[10.5px] font-bold uppercase tracking-[0.14em] text-[var(--color-deep-forest)]">
                   {plan.tag}
                 </span>
               )}
 
-              {/* Plan name + slot */}
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className={`text-[0.72rem] font-semibold uppercase tracking-[0.16em] ${plan.popular ? "text-white/55" : "text-[var(--color-muted-sage)]"}`}>
-                    {slot === "lunch" ? "Lunch" : "Dinner"}
-                  </p>
-                  <h3 className={`mt-1.5 text-2xl font-semibold ${plan.popular ? "text-white" : "text-[var(--color-charcoal)]"}`}>
-                    {plan.name}
-                  </h3>
-                </div>
-                <span className={`mt-1 shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${plan.popular ? "bg-white/15 text-white/80" : "bg-[var(--color-base)] text-[var(--color-muted-sage)]"}`}>
-                  {plan.days} days
-                </span>
-              </div>
+              <div className={`text-[11.5px] font-semibold uppercase tracking-[0.16em] ${plan.popular ? "text-white/55" : "text-[var(--color-muted-sage)]"}`}>{plan.slot}</div>
+              <h3 className={`mt-1.5 font-semibold leading-none ${plan.popular ? "text-white" : "text-[var(--color-charcoal)]"}`} style={{ fontFamily: "var(--font-display)", fontSize: "34px" }}>
+                {plan.name}
+              </h3>
+              <p className={`mt-4 text-[14.5px] ${plan.popular ? "text-white/72" : "text-[#5b5a58]"}`}>{plan.description}</p>
 
-              <p className={`mt-3 text-sm leading-relaxed ${plan.popular ? "text-white/70" : "text-[#5a5a58]"}`}>
-                {plan.description}
-              </p>
-
-              {/* Price block */}
-              <div className={`mt-7 rounded-2xl p-4 ${plan.popular ? "bg-white/10" : "bg-[var(--color-base)]"}`}>
-                <div className="flex items-end gap-2">
-                  <span className={`text-[2.4rem] font-semibold leading-none ${plan.popular ? "text-white" : "text-[var(--color-charcoal)]"}`}>
-                    {plan.totalPrice}
-                  </span>
-                  <span className={`mb-0.5 text-sm ${plan.popular ? "text-white/60" : "text-[#6a6a69]"}`}>
-                    total
-                  </span>
+              {/* Price block — centered */}
+              <div className={`mt-7 rounded-2xl p-[18px] text-center ${plan.popular ? "bg-white/10" : "bg-[var(--color-base)]"}`}>
+                <div className={`font-semibold leading-none ${plan.popular ? "text-white" : "text-[var(--color-charcoal)]"}`} style={{ fontFamily: "var(--font-display)", fontSize: "40px" }}>
+                  {plan.totalPrice}
+                  <small className={`ml-1.5 text-[14px] font-normal ${plan.popular ? "text-white/60" : "text-[#6a6a69]"}`} style={{ fontFamily: "inherit" }}>total</small>
                 </div>
-                <p className={`mt-1.5 text-sm font-medium ${plan.popular ? "text-white/65" : "text-[var(--color-muted-sage)]"}`}>
-                  {plan.perMeal} per meal &middot; {plan.meals} meals
-                </p>
+                <div className={`mt-1.5 text-[13.5px] font-medium ${plan.popular ? "text-white/65" : "text-[var(--color-muted-sage)]"}`}>{plan.perMeal}</div>
               </div>
 
               {/* Features */}
-              <ul className="mt-7 flex flex-col gap-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2.5 text-sm">
-                    <span className={`shrink-0 ${plan.popular ? "text-[var(--color-champagne)]" : "text-[var(--color-deep-forest)]"}`}>
-                      {checkIcon}
-                    </span>
-                    <span className={plan.popular ? "text-white/85" : "text-[#4a4a49]"}>
-                      {feature}
-                    </span>
+              <ul className="mt-7 flex flex-1 flex-col gap-3">
+                {plan.features.map((feat) => (
+                  <li key={feat} className="flex items-center gap-2.5 text-[14.5px]">
+                    <span className={`shrink-0 ${plan.popular ? "text-[var(--color-champagne)]" : "text-[var(--color-deep-forest)]"}`}>{checkIcon}</span>
+                    <span className={plan.popular ? "text-white/85" : "text-[#4a4a49]"}>{feat}</span>
                   </li>
                 ))}
               </ul>
 
-              {/* CTA — mt-auto pins this to the bottom regardless of feature count */}
+              {/* CTA */}
               <a
                 href="#waitlist"
-                className={`mt-auto pt-8 inline-flex w-full items-center justify-center rounded-2xl px-6 py-4 text-base font-semibold transition duration-300 hover:scale-[1.01] shadow-md ${
-                  plan.popular
-                    ? "bg-[var(--color-champagne)] text-[var(--color-deep-forest)] hover:brightness-105"
-                    : "bg-[var(--color-deep-forest)] text-white hover:bg-[#234a31]"
+                className={`mt-6 inline-flex w-full items-center justify-center rounded-2xl px-6 py-3.5 text-[14.5px] font-semibold transition duration-200 hover:scale-[1.01] ${
+                  plan.popular ? "bg-[var(--color-champagne)] text-[var(--color-deep-forest)] hover:brightness-105" : "bg-[var(--color-deep-forest)] text-white hover:bg-[#234a31]"
                 }`}
               >
-                Join Waitlist
+                {plan.cta}
               </a>
             </motion.div>
           ))}
         </div>
 
-        {/* Footer note */}
-        <motion.p
-          {...reveal}
-          transition={{ ...reveal.transition, delay: 0.3 }}
-          className="mt-8 text-sm text-[#7a7a78]"
-        >
+        <motion.p {...reveal} transition={{ ...reveal.transition, delay: 0.3 }} className="mt-8 text-[13px] text-[#7a7a78]">
           No contracts. No auto-renewals. Pay once, enjoy your meals.
         </motion.p>
-
       </div>
     </section>
   );
